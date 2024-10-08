@@ -1,4 +1,5 @@
 import axiosInstance from "@/lib/axiosInstance";
+import Cookies from "js-cookie";
 
 interface ApiResponse<T> {
   data: T | null;
@@ -22,7 +23,7 @@ const useApi = () => {
   ): Promise<ApiResponse<T>> => {
     try {
       if (isProtected) {
-        const accessToken = sessionStorage.getItem("accessToken");
+        const accessToken = Cookies.get("accessToken");
         if (!accessToken) {
           throw new Error("Unauthorized: Access token is required");
         }
